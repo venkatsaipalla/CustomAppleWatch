@@ -5,8 +5,11 @@ import HomePageStyles from "./Homepage.module.css";
 import HomepageAppleWatchBlackStrap from "../assests/black-watch-belt.jpg";
 import HomepageAppleWatchFace from "../assests/watch-case-46-aluminum-jetblack-nc-s10_VW_PF+watch-face-46-aluminum-jetblack-s10_VW_PF.png";
 
-import { useState } from "react";
-import zIndex from "@mui/material/styles/zIndex";
+import { useRef, useState } from "react";
+import { ICollectionsType } from "./interfaces/HomepageInterface";
+import { APPLE_WATCH_SERIES_10_TEXT } from "../commonConstants/constants";
+import SelectedWatchInformation from "./SelectedWatchInformation";
+import AppleWatchCustomizeOptions from "./AppleWatchCustomizeOptions";
 
 const useStyles = makeStyles(
   (theme: {
@@ -18,10 +21,27 @@ const HomePage = () => {
   const classes = useStyles();
   const [isGetStartedButtonClicked, setIsGetStartedButtonClicked] =
     useState(false);
+  const [selectedCollectionsType, setSelectedCollectionsType] =
+    useState<ICollectionsType>({
+      id: 1,
+      typeName: APPLE_WATCH_SERIES_10_TEXT,
+    });
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const handleCollectionTypeChange = (collectionType: ICollectionsType) => {
+    setSelectedCollectionsType(collectionType);
+    setIsModalOpen(!isModalOpen);
+  };
+
   return (
     <Box className={HomePageStyles.HomePageContainerCSS}>
       <Box className={HomePageStyles.container}>
-        <Header isGetStartedButtonClicked={isGetStartedButtonClicked} />
+        <Header
+          isGetStartedButtonClicked={isGetStartedButtonClicked}
+          handleCollectionTypeChange={handleCollectionTypeChange}
+          selectedCollectionsType={selectedCollectionsType}
+          isModalOpen={isModalOpen}
+          setIsModalOpen={setIsModalOpen}
+        />
         <Box
           display="flex"
           // flexDirection="column"
@@ -29,7 +49,7 @@ const HomePage = () => {
           // alignItems="center"
           style={{
             position: "relative",
-            top: "13vh",
+            top: isGetStartedButtonClicked? "6vh" : "13vh",
             zIndex: 1,
             margin: "0 auto",
           }}
@@ -96,6 +116,12 @@ const HomePage = () => {
               </Button>
             </Box>
           </Box>
+        )}
+        {isGetStartedButtonClicked &&(
+          <SelectedWatchInformation/>
+        )}
+        {isGetStartedButtonClicked &&(
+          <AppleWatchCustomizeOptions/>
         )}
       </Box>
     </Box>

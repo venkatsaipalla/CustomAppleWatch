@@ -1,8 +1,37 @@
-.HeaderlogoCSS{
-    height: auto;
-    width: 90px;
+.HeaderlogoCSS {
+  height: 19.825px;
+  width: 90px;
 }
-.HeaderContainerCSS{
-    padding-top: 2rem;
-    width: 100%;
+.HeaderContainerCSS {
+  padding-top: 2rem;
+  width: 100%;
+}
+.transitionEffect {
+  opacity: 0;
+  transform: translateY(10px);
+  pointer-events: none; /* Ensures it doesn't interfere when hidden */
+  transition: opacity 0.3s ease-out, transform 0.3s ease-out;
+}
+
+.transitionEffect.visible {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.transitionEffect.hidden {  
+  opacity: 0;
+  transform: translateY(10px);
+  pointer-events: none;
+}
+.CollectionTypeName{
+    cursor: pointer;
+    font-size: 17px;
+    text-align: center;
+    letter-spacing: -.022em;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+.CollectionTypeName :hover{
+    color: #0070c9;
+    background-color: transparent;
 }
