@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "target": "ES5",
+    "lib": ["dom", "es2015"],
+    "allowJs": true,
+    "jsx": "react-jsx",
+    "moduleResolution": "node",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true
+  },
+  "include": [
+    "src/**/*",
+    "src/declarations.d.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "build"
+  ]
+}
