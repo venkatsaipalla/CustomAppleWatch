@@ -29,8 +29,8 @@
   min-height: 23.470588rem;
   width: 52vh;
   max-width: 500px;
-  text-align: center;
   transform: translateY(32rem) scale(2);
+  position: relative;
 }
 .landingPageAppleWatchContainerWhenGetStartedClicked{
     transform: none;
