@@ -3,5 +3,6 @@
     width: 90px;
 }
 .HeaderContainerCSS{
-    padding-top: 2%;
+    padding-top: 2rem;
+    width: 100%;
 }
