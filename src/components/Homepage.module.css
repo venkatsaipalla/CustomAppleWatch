@@ -10,14 +10,13 @@
   overflow: hidden auto;
 }
 .container {
-  max-width: 95vw;
+  max-width: 96vw;
   width: 100%;
 }
 .headline {
   letter-spacing: -0.009em;
   text-align: left;
   font-size: 4rem !important;
-  font-family: "SF Pro Display", "SF Pro Icons", "Helvetica Neue", "Helvetica" !important;
 }
 .collectionName {
   font-size: 21px;

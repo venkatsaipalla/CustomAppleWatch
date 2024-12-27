@@ -49,7 +49,7 @@ const HomePage = () => {
           // alignItems="center"
           style={{
             position: "relative",
-            top: isGetStartedButtonClicked? "6vh" : "13vh",
+            top: isGetStartedButtonClicked ? "6vh" : "13vh",
             zIndex: 1,
             margin: "0 auto",
           }}
@@ -117,12 +117,17 @@ const HomePage = () => {
             </Box>
           </Box>
         )}
-        {isGetStartedButtonClicked &&(
-          <SelectedWatchInformation/>
+        {isGetStartedButtonClicked && (
+          <Box>
+            <br/>
+            <br/>
+            <br/>
+            <SelectedWatchInformation
+              selectedCollectionsType={selectedCollectionsType}
+            />
+          </Box>
         )}
-        {isGetStartedButtonClicked &&(
-          <AppleWatchCustomizeOptions/>
-        )}
+        {isGetStartedButtonClicked && <AppleWatchCustomizeOptions />}
       </Box>
     </Box>
   );
