@@ -2,14 +2,14 @@ import { Box, Typography } from "@mui/material";
 import { ISelectedWatchInfoPrps } from "./interfaces/HomepageInterface";
 
 export const SelectedWatchInformation = (props: ISelectedWatchInfoPrps) => {
-  const { selectedCollectionsType } = props;
+  const { selectedCollectionsType,selectedWatchType } = props;
   return (
     <Box>
       <Typography variant="body2" style={{ textTransform: "uppercase",marginBottom:'5px' }}>
         {selectedCollectionsType.typeName}
       </Typography>
       <Typography variant="subtitle1" marginBottom={'5px'}>
-        46mm Jet Black Aluminum Case with Black Solo Loop
+        {selectedWatchType?.title}
       </Typography>
       <Typography
         variant="body1"

@@ -5,9 +5,19 @@ import HomePageStyles from "./Homepage.module.css";
 import HomepageAppleWatchBlackStrap from "../assests/black-watch-belt.jpg";
 import HomepageAppleWatchFace from "../assests/watch-case-46-aluminum-jetblack-nc-s10_VW_PF+watch-face-46-aluminum-jetblack-s10_VW_PF.png";
 
-import { useRef, useState } from "react";
-import { ICollectionsType } from "./interfaces/HomepageInterface";
-import { APPLE_WATCH_SERIES_10_TEXT } from "../commonConstants/constants";
+import { useEffect, useRef, useState } from "react";
+import {
+  ICaseType,
+  ICollectionsType,
+  ICustomizeOption,
+  ISelectedWatchTypes,
+  IWatchSizes,
+} from "./interfaces/HomepageInterface";
+import {
+  ALUMINIUM_TEXT,
+  APPLE_WATCH_SERIES_10_TEXT,
+  SOLO_LOOP_TEXT,
+} from "../commonConstants/constants";
 import SelectedWatchInformation from "./SelectedWatchInformation";
 import AppleWatchCustomizeOptions from "./AppleWatchCustomizeOptions";
 
@@ -20,18 +30,44 @@ const useStyles = makeStyles(
 const HomePage = () => {
   const classes = useStyles();
   const [isGetStartedButtonClicked, setIsGetStartedButtonClicked] =
-    useState(false);
+    useState(true);
   const [selectedCollectionsType, setSelectedCollectionsType] =
     useState<ICollectionsType>({
       id: 1,
       typeName: APPLE_WATCH_SERIES_10_TEXT,
     });
+  const [selectedCustomizeOption, setSelectedCustomizeOption] =
+    useState<ICustomizeOption>("");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const handleCollectionTypeChange = (collectionType: ICollectionsType) => {
     setSelectedCollectionsType(collectionType);
     setIsModalOpen(!isModalOpen);
   };
-
+  const [selectedWatchCase, setSelectedWatchCase] = useState<ICaseType>(ALUMINIUM_TEXT);
+  const [selectedWatchBand, setSelectedWatchBand] = useState(SOLO_LOOP_TEXT);
+  const [selectedWatchSize, setSelectedWatchSize] =
+    useState<IWatchSizes>("46mm");
+  const [selectedWatchType, setSelectedWatchType] =
+    useState<ISelectedWatchTypes>({
+      size: selectedWatchSize,
+      caseType: selectedWatchCase,
+      bandType: selectedWatchBand,
+      collectionType: selectedCollectionsType,
+      title: `${selectedWatchSize} Jet Black ${selectedWatchCase} Case with Black ${selectedWatchBand}`,
+      cost: "$429",
+    });
+  useEffect(() => {
+    if (isGetStartedButtonClicked) {
+      setSelectedWatchType({
+        size: selectedWatchSize,
+        caseType: selectedWatchCase,
+        bandType: selectedWatchBand,
+        collectionType: selectedCollectionsType,
+        title: `${selectedWatchSize} Jet Black ${selectedWatchCase} Case with Black ${selectedWatchBand}`,
+        cost: "$429",
+      });
+    }
+  }, [isGetStartedButtonClicked,selectedWatchSize,selectedWatchCase,selectedWatchBand,selectedCollectionsType]);
   return (
     <Box className={HomePageStyles.HomePageContainerCSS}>
       <Box className={HomePageStyles.container}>
@@ -119,15 +155,27 @@ const HomePage = () => {
         )}
         {isGetStartedButtonClicked && (
           <Box>
-            <br/>
-            <br/>
-            <br/>
+            <br />
+            <br />
+            <br />
             <SelectedWatchInformation
               selectedCollectionsType={selectedCollectionsType}
+              selectedWatchType={selectedWatchType}
             />
           </Box>
         )}
-        {isGetStartedButtonClicked && <AppleWatchCustomizeOptions />}
+        {isGetStartedButtonClicked && (
+          <AppleWatchCustomizeOptions
+            setSelectedCustomizeOption={setSelectedCustomizeOption}
+            selectedCustomizeOption={selectedCustomizeOption}
+            setSelectedWatchCase={setSelectedWatchCase}
+            selectedWatchCase={selectedWatchCase}
+            setSelectedWatchBand={setSelectedWatchBand}
+            selectedWatchBand={selectedWatchBand}
+            setSelectedWatchSize={setSelectedWatchSize}
+            selectedWatchSize={selectedWatchSize}
+          />
+        )}
       </Box>
     </Box>
   );
