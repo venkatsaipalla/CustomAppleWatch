@@ -14,6 +14,7 @@ import {
 // import AppleIcon from '@mui/icons-material/Apple';
 import logo from "../assests/apple-watch-design-studio-logo.jpg";
 import HeaderStyles from "./Header.module.css";
+import HomePageStyles from "./Homepage.module.css";
 import { Key, useRef, useState } from "react";
 import { ICollectionsType } from "./interfaces/HomepageInterface";
 import { collectionsTypeList } from "../commonConstants/constants";
@@ -43,7 +44,7 @@ const Header = (props: IHeaderProps) => {
 
   return (
     <Box
-      className={HeaderStyles.HeaderContainerCSS}
+      className={`${HeaderStyles.HeaderContainerCSS} ${HomePageStyles.container}`}
       display="flex"
       justifyContent="space-between"
     >

@@ -25,6 +25,8 @@ export type ISelectedWatchTypes = {
   size: IWatchSizes;
   caseType: ICaseType
   bandType: string;
+  watchBandImageUrl : string;
+  watchFaceImageUrl : string;
   collectionType: ICollectionsType;
   title: string;
   cost: string | number;

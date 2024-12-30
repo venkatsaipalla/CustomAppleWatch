@@ -37,6 +37,10 @@
   transition: 1.2s ease-in-out 0.4s;
   min-height: 18.4705882353rem;
 }
+.landinPageAppleWatchContainerWhenCarosalOn {
+  position: absolute;
+  z-index: 2;
+}
 .landingPageAppleWatch {
   width: 52vh;
   height: auto;
@@ -82,7 +86,7 @@
   transition: opacity 0.3s ease;
   opacity: 1;
 }
-.CustomBandsText{
+.CustomBandsText {
   padding-top: 4px;
   padding-bottom: 3px;
   padding-inline: 7px 6px;
@@ -91,9 +95,53 @@
   line-height: 33px;
   vertical-align: middle;
   white-space: nowrap;
-  font-size: 17px!important;
-  
+  font-size: 17px !important;
 }
+
+/* swiper css  */
+.custom_prev_button,
+.custom_next_button {
+  position: absolute;
+  top: 50%;
+  z-index: 10;
+  background-color: #e8e8ed;
+  color: #0000008f;
+  border-radius: 40px;
+  height: 36px;
+  width: 36px;
+  cursor: pointer;
+  user-select: none;
+  transform: translateY(-50%);
+}
+
+.custom_prev_button {
+  left: 19px;
+}
+
+.custom_next_button {
+  right: 19px;
+}
+
+/* Added this for the initial transition effect */
+.swiper_container {
+  opacity: 1;
+  transition: opacity 0.5s ease;
+}
+
+
+.swiper-slide {
+  transform: translateX(100%);
+  transition: transform 0.8s ease-in-out;
+}
+
+.swiper_container.initial_loaded .swiper-slide {
+  transform: translateX(0);
+}
+
+.swiper_container.initial-loaded {
+  opacity: 1;
+}
+
 @media screen and (max-width: 550px) {
   .container {
     max-width: 91.2%;
