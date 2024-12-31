@@ -104,6 +104,7 @@ import {
 } from "../commonConstants/constants";
 import SelectedWatchInformation from "./SelectedWatchInformation";
 import AppleWatchCustomizeOptions from "./AppleWatchCustomizeOptions";
+import useDeviceSize from '../hooks/useDeviceSize';
 
 const useStyles = makeStyles(
   (theme: {
@@ -113,6 +114,7 @@ const useStyles = makeStyles(
 );
 const HomePage = () => {
   const classes = useStyles();
+  const deviceSize = useDeviceSize();
   const [isGetStartedButtonClicked, setIsGetStartedButtonClicked] =
     useState(false);
   const [selectedCollectionsType, setSelectedCollectionsType] =
@@ -509,15 +511,7 @@ const HomePage = () => {
         </Box>
       </Box>
       {!isGetStartedButtonClicked && (
-        <Box
-          style={{
-            textAlign: "left",
-            position: "absolute",
-            top: "9%",
-            zIndex: 2,
-            left: "24vw",
-          }}
-        >
+        <Box className={HomePageStyles.headlineContainer}>
           <Box style={{ padding: "0 auto" }}>
             <Typography
               variant="h1"

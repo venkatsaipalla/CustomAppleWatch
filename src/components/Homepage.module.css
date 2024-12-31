@@ -13,6 +13,13 @@
   max-width: 96vw;
   width: 100%;
 }
+.headlineContainer {
+  text-align: left;
+  position: absolute;
+  top: 9%;
+  z-index: 2;
+  left: 24vw;
+}
 .headline {
   letter-spacing: -0.009em;
   text-align: left;
@@ -22,6 +29,8 @@
   font-size: 21px;
   font-weight: 400;
   letter-spacing: -0.009em;
+}
+.landingPageAppleWatchMainContainer {
 }
 .landingPageAppleWatchContainer {
   height: 53vh;
@@ -128,7 +137,6 @@
   transition: opacity 0.5s ease;
 }
 
-
 .swiper-slide {
   transform: translateX(100%);
   transition: transform 0.8s ease-in-out;
@@ -148,11 +156,41 @@
   }
 }
 
-/* @media screen and (min-width: 480px) {
-    .container {
-        max-width: 448px;
-    }
-} */
+@media screen and (max-width: 734px) {
+  .headline {
+    letter-spacing: 0;
+    line-height: 1.1;
+    font-size: 2.5rem !important;
+  }
+  .landingPageAppleWatchContainer {
+    transform: translateY(476px) scale(1.7);
+    min-height: 0;
+    height: 85vw;
+    max-width: none;
+    min-width: 0;
+    width: 85vw;
+  }
+  .landingPageAppleWatchContainerWhenGetStartedClicked {
+    transform: none;
+    transition: 1.2s ease-in-out 0.4s;
+    min-height: 18.4705882353rem;
+  }
+  .landingPageAppleWatchFace {
+    height: auto;
+    max-width: none;
+    min-width: 0;
+    width: 85vw;
+  }
+  .landingPageAppleWatchBlackBeltStap {
+    height: auto;
+    max-width: none;
+    min-width: 0;
+    width: 85vw;
+  }
+  .headlineContainer {
+    left: 6vw;
+  }
+}
 @media screen and (min-width: 1280px) and (max-width: 1440px) {
   .container {
     max-width: 92%;
