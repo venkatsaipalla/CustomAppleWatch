@@ -42,11 +42,6 @@
   transform: translateY(32rem) scale(2);
   position: relative;
 }
-.landingPageAppleWatchContainerWhenGetStartedClicked {
-  transform: none;
-  transition: 1.2s ease-in-out 0.4s;
-  min-height: 18.4705882353rem;
-}
 .landinPageAppleWatchContainerWhenCarosalOn {
   position: absolute;
   z-index: 2;
@@ -61,10 +56,19 @@
   display: inline-block;
 }
 .landingPageAppleWatchBlackBeltStap {
+  min-height: 18.4705882353rem;
+}
+.landingPageAppleWatchContainerWhenGetStartedClicked {
+  transform: none;
+  transition: 1.2s ease-in-out 0.4s;
+  min-height: 18.4705882353rem;
 }
 .landingPageAppleWatchFace {
   position: absolute;
   left: 0%;
+}
+.WatchInfoDisplayContainer{
+  margin-top: 1rem;
 }
 .CustomOptionsDiv {
   padding: 0px 18px;
@@ -211,11 +215,6 @@
     min-width: 0;
     width: 42vh;
   }
-  .landingPageAppleWatchContainerWhenGetStartedClicked {
-    transform: none;
-    transition: 1.2s ease-in-out 0.4s;
-    min-height: 18.4705882353rem;
-  }
   .landingPageAppleWatchFace {
     height: auto;
     max-width: none;
@@ -227,6 +226,11 @@
     max-width: none;
     min-width: 0;
     width: 42vh;
+  }
+  .landingPageAppleWatchContainerWhenGetStartedClicked {
+    transform: none;
+    transition: 1.2s ease-in-out 0.4s;
+    min-height: 18.4705882353rem;
   }
   .swiper_container {
     padding-right: 37px;
@@ -266,11 +270,6 @@
     min-width: 0;
     width: 85vw;
   }
-  .landingPageAppleWatchContainerWhenGetStartedClicked {
-    transform: none;
-    transition: 1.2s ease-in-out 0.4s;
-    min-height: 18.4705882353rem;
-  }
   .landingPageAppleWatchFace {
     height: auto;
     max-width: none;
@@ -282,6 +281,11 @@
     max-width: none;
     min-width: 0;
     width: 85vw;
+  }
+  .landingPageAppleWatchContainerWhenGetStartedClicked {
+    transform: none;
+    transition: 1.2s ease-in-out 0.4s;
+    min-height: 18.4705882353rem;
   }
   .headlineContainer {
     /* left: 10vw; */

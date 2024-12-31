@@ -421,7 +421,7 @@ const HomePage = () => {
         // alignItems="center"
         style={{
           position: "relative",
-          top: isGetStartedButtonClicked ? "6vh" : "13vh",
+          top: isGetStartedButtonClicked ? "1rem" : "13vh",
           zIndex: 1,
           margin: "0 auto",
           width: "100vw",
@@ -554,9 +554,6 @@ const HomePage = () => {
       )}
       {isGetStartedButtonClicked && (
         <Box>
-          <br />
-          <br />
-          <br />
           <SelectedWatchInformation
             selectedCollectionsType={selectedCollectionsType}
             selectedWatchType={selectedWatchType}
