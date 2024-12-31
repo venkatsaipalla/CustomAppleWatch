@@ -82,6 +82,18 @@ import nike_sport_bands_4_46mm_watchface from "../assests/nikeSportBands/4_46mm_
 import nike_sport_bands_5_46mm_watchface from "../assests/nikeSportBands/5_46mm_watchface.png";
 import nike_sport_bands_6_46mm_watchface from "../assests/nikeSportBands/6_46mm_watchface.png";
 import nike_sport_bands_7_46mm_watchface from "../assests/nikeSportBands/7_46mm_watchface.png";
+import commonWatchFace_1_46mm from "../assests/commonWatchFaces/1.png";
+import commonWatchFace_2_46mm from "../assests/commonWatchFaces/2.png";
+import commonWatchFace_3_46mm from "../assests/commonWatchFaces/3.png";
+import commonWatchFace_4_46mm from "../assests/commonWatchFaces/4.png";
+import commonWatchFace_5_46mm from "../assests/commonWatchFaces/5.png";
+import commonWatchFace_6_46mm from "../assests/commonWatchFaces/6.png";
+import nikeSportLoopBand_1_2nd_46mm_watchFace from "../assests/nikeSportLoopBands/1_watch_faces/2_46_mm_wactchface.png";
+import nikeSportLoopBand_1_3rd_46mm_watchFace from "../assests/nikeSportLoopBands/1_watch_faces/3_46_mm_wactchface.png";
+import nikeSportLoopBand_1_4th_46mm_watchFace from "../assests/nikeSportLoopBands/1_watch_faces/4_46_mm_wactchface.png";
+import nikeSportLoopBand_1_5th_46mm_watchFace from "../assests/nikeSportLoopBands/1_watch_faces/5_46_mm_wactchface.png";
+import nikeSportLoopBand_1_6th_46mm_watchFace from "../assests/nikeSportLoopBands/1_watch_faces/6_46_mm_wactchface.png";
+
 import {
   ICaseType,
   ICollectionsType,
@@ -93,7 +105,9 @@ import {
   ALUMINIUM_TEXT,
   APPLE_WATCH_SE_TEXT,
   APPLE_WATCH_SERIES_10_TEXT,
+  BAND_TEXT,
   BRAIDED_SOLO_LOOP_TEXT,
+  CASE_TEXT,
   FINEWOVEN_TEXT,
   NIKE_SPORT_BAND_TEXT,
   NIKE_SPORT_LOOP_TEXT,
@@ -101,10 +115,11 @@ import {
   SPORT_BAND_TEXT,
   SPORT_LOOP_TEXT,
   STAINLESS_STEEL_TEXT,
+  TITANIUM_TEXT,
 } from "../commonConstants/constants";
 import SelectedWatchInformation from "./SelectedWatchInformation";
 import AppleWatchCustomizeOptions from "./AppleWatchCustomizeOptions";
-import useDeviceSize from '../hooks/useDeviceSize';
+import useDeviceSize from "../hooks/useDeviceSize";
 
 const useStyles = makeStyles(
   (theme: {
@@ -134,6 +149,8 @@ const HomePage = () => {
   const [selectedWatchBand, setSelectedWatchBand] = useState(SOLO_LOOP_TEXT);
   const [selectedWatchBandName, setSelectedWatchBandName] =
     useState("Black Solo Loop");
+  const [selectedWatchFaceName, setSelectedWatchFaceName] =
+    useState("Jet Black");
   const [selectedWatchBandImageUrl, setSelectedWatchBandImageUrl] = useState(
     HomepageAppleWatchBlackStrap
   );
@@ -149,6 +166,17 @@ const HomePage = () => {
         watchFaceImageUrl: string;
       }[]
     >([]);
+  const [
+    selectedCollectionTypeWatchFaces,
+    setSelectedCollectionsTypeWatchFaces,
+  ] = useState<
+    {
+      watchFaceCaseModel: string;
+      imagePath: string;
+      watchFaceName: string;
+      watchFaceImageUrl?: string;
+    }[]
+  >([]);
   const [selectedWatchSize, setSelectedWatchSize] =
     useState<IWatchSizes>("46mm");
   const [selectedWatchType, setSelectedWatchType] =
@@ -159,12 +187,13 @@ const HomePage = () => {
       watchBandImageUrl: selectedWatchBandImageUrl,
       bandType: selectedWatchBand,
       collectionType: selectedCollectionsType,
-      title: `${selectedWatchSize} Jet Black ${selectedWatchCase} Case with ${selectedWatchBandName}`,
+      title: `${selectedWatchSize} ${selectedWatchFaceName} ${selectedWatchCase} Case with ${selectedWatchBandName}`,
       cost: "$429",
     });
   const [centeredIndex, setCenteredIndex] = useState(0); // To store the centered slide index
   const swiperRef = useRef<SwiperType | null>(null);
   const [isInitialLoad, setIsInitialLoad] = useState(true);
+  console.log({selectedCollectionTypeWatchFaces})
   useEffect(() => {
     if (
       selectedCollectionsType.typeName === APPLE_WATCH_SERIES_10_TEXT ||
@@ -180,6 +209,9 @@ const HomePage = () => {
         ...getWatchBandsImagesBasedOnBandText(NIKE_SPORT_LOOP_TEXT),
         ...getWatchBandsImagesBasedOnBandText(NIKE_SPORT_BAND_TEXT),
       ];
+      const watchFaces = [
+        ...getWatchFacesImagesBasedonSelectedBand(selectedWatchBand),
+      ];
       setSelectedCollectionsTypeBands(
         bands as {
           bandModel: string;
@@ -188,8 +220,9 @@ const HomePage = () => {
           watchFaceImageUrl: string;
         }[]
       );
+      setSelectedCollectionsTypeWatchFaces(watchFaces);
     }
-  }, [selectedCollectionsType]);
+  }, [selectedCollectionsType,selectedWatchBand]);
   console.log({ selectedCollectionTypeBands });
   useEffect(() => {
     // Set a delay to trigger the initial transition after render
@@ -208,7 +241,7 @@ const HomePage = () => {
         watchFaceImageUrl: selectedWatchFaceImageUrl,
         watchBandImageUrl: selectedWatchBandImageUrl,
         collectionType: selectedCollectionsType,
-        title: `${selectedWatchSize} Jet Black ${selectedWatchCase} Case with ${selectedWatchBandName}`,
+        title: `${selectedWatchSize} ${selectedWatchFaceName} ${selectedWatchCase} Case with ${selectedWatchBandName}`,
         cost: "$429",
       });
     }
@@ -219,6 +252,7 @@ const HomePage = () => {
     selectedWatchBand,
     selectedCollectionsType,
     selectedWatchBandName,
+    selectedWatchFaceName
   ]);
   const getWatchBandsImagesBasedOnBandText = (band: string) => {
     const mapImageWithBand = (
@@ -405,6 +439,177 @@ const HomePage = () => {
         ];
     }
   };
+  const getWatchFacesImagesBasedonSelectedBand = (band: string) => {
+    const mapImageWithWatchFace = (
+      imagePath: string,
+      watchFaceName: string,
+      watchFaceCaseModel: string,
+      watchFaceImageUrl?: string
+    ) => ({
+      imagePath,
+      watchFaceName,
+      watchFaceCaseModel,
+      watchFaceImageUrl,
+    });
+
+    switch (band) {
+      case STAINLESS_STEEL_TEXT:
+      case SPORT_LOOP_TEXT:
+      case SPORT_BAND_TEXT:
+      case FINEWOVEN_TEXT:
+      case BRAIDED_SOLO_LOOP_TEXT:
+      case SOLO_LOOP_TEXT:
+        return [
+          mapImageWithWatchFace(
+            commonWatchFace_1_46mm,
+            "Silver",
+            ALUMINIUM_TEXT
+          ),
+          mapImageWithWatchFace(
+            commonWatchFace_2_46mm,
+            "Rose Gold",
+            ALUMINIUM_TEXT
+          ),
+          mapImageWithWatchFace(
+            commonWatchFace_3_46mm,
+            "Jet Black",
+            ALUMINIUM_TEXT
+          ),
+          mapImageWithWatchFace(
+            commonWatchFace_4_46mm,
+            "Natural",
+            TITANIUM_TEXT
+          ),
+          mapImageWithWatchFace(commonWatchFace_5_46mm, "Gold", TITANIUM_TEXT),
+          mapImageWithWatchFace(commonWatchFace_6_46mm, "Slate", TITANIUM_TEXT),
+        ];
+
+      case NIKE_SPORT_LOOP_TEXT:
+        return [
+          mapImageWithWatchFace(
+            nike_sport_loop_band_1_46mm_watchface,
+            "Silver",
+            ALUMINIUM_TEXT
+          ),
+          mapImageWithWatchFace(
+            nikeSportLoopBand_1_2nd_46mm_watchFace,
+            "Rose Gold",
+            ALUMINIUM_TEXT
+          ),
+          mapImageWithWatchFace(
+            nikeSportLoopBand_1_3rd_46mm_watchFace,
+            "Jet Black",
+            ALUMINIUM_TEXT
+          ),
+          mapImageWithWatchFace(
+            nikeSportLoopBand_1_4th_46mm_watchFace,
+            "Natural",
+            TITANIUM_TEXT
+          ),
+          mapImageWithWatchFace(
+            nikeSportLoopBand_1_5th_46mm_watchFace,
+            "Gold",
+            TITANIUM_TEXT
+          ),
+          mapImageWithWatchFace(
+            nikeSportLoopBand_1_6th_46mm_watchFace,
+            "Slate",
+            TITANIUM_TEXT
+          ),
+        ];
+      case NIKE_SPORT_BAND_TEXT:
+        return [
+          mapImageWithWatchFace(
+            commonWatchFace_1_46mm,
+            "Silver",
+            ALUMINIUM_TEXT
+          ),
+          mapImageWithWatchFace(
+            commonWatchFace_2_46mm,
+            "Rose Gold",
+            ALUMINIUM_TEXT
+          ),
+          mapImageWithWatchFace(
+            commonWatchFace_3_46mm,
+            "Jet Black",
+            ALUMINIUM_TEXT
+          ),
+          mapImageWithWatchFace(
+            commonWatchFace_4_46mm,
+            "Natural",
+            TITANIUM_TEXT
+          ),
+          mapImageWithWatchFace(commonWatchFace_5_46mm, "Gold", TITANIUM_TEXT),
+          mapImageWithWatchFace(commonWatchFace_6_46mm, "Slate", TITANIUM_TEXT),
+        ];
+      default:
+        return [
+          mapImageWithWatchFace(
+            commonWatchFace_1_46mm,
+            "Silver",
+            ALUMINIUM_TEXT
+          ),
+          mapImageWithWatchFace(
+            commonWatchFace_2_46mm,
+            "Rose Gold",
+            ALUMINIUM_TEXT
+          ),
+          mapImageWithWatchFace(
+            commonWatchFace_3_46mm,
+            "Jet Black",
+            ALUMINIUM_TEXT
+          ),
+          mapImageWithWatchFace(
+            commonWatchFace_4_46mm,
+            "Natural",
+            TITANIUM_TEXT
+          ),
+          mapImageWithWatchFace(commonWatchFace_5_46mm, "Gold", TITANIUM_TEXT),
+          mapImageWithWatchFace(commonWatchFace_6_46mm, "Slate", TITANIUM_TEXT),
+        ];
+    }
+  };
+  // const getInitialSlideIndex = (selectedBand: string) => {
+  //   const index = selectedCollectionTypeBands.findIndex(
+  //     (band) => band.bandModel === selectedBand
+  //   );
+  //   return index !== -1 ? index : 0; // Default to 0 if not found
+  // };
+  const getInitialSlideIndex = (
+    selectedModel: string,
+    collection: {
+      bandModel?: string;
+      watchFaceModel?: string;
+      watchFaceCaseModel?: string;
+    }[]
+  ) => {
+    const index = collection.findIndex(
+      (item) =>
+        item.bandModel === selectedModel ||
+        item.watchFaceModel === selectedModel ||
+        item.watchFaceCaseModel === selectedModel
+    );
+    return index !== -1 ? index : 0; // Default to 0 if not found
+  };
+
+  useEffect(() => {
+    if (swiperRef.current) {
+      const newIndex = getInitialSlideIndex(
+        selectedWatchBand,
+        selectedCollectionTypeBands
+      );
+      swiperRef.current.slideTo(newIndex); // Programmatically move to the new index
+    }
+  }, [selectedWatchBand]);
+  useEffect(() => {
+    if (swiperRef.current) {
+      const newIndex = getInitialSlideIndex(
+        selectedWatchCase,
+        selectedCollectionTypeWatchFaces
+      );
+      swiperRef.current.slideTo(newIndex); // Programmatically move to the new index
+    }
+  }, [selectedWatchCase]);
   return (
     <Box className={HomePageStyles.HomePageContainerCSS}>
       <Header
@@ -440,7 +645,17 @@ const HomePage = () => {
               modules={[Navigation]}
               spaceBetween={50}
               slidesPerView="auto"
-              initialSlide={3}
+              initialSlide={
+                selectedCustomizeOption === BAND_TEXT
+                  ? getInitialSlideIndex(
+                      selectedWatchBand,
+                      selectedCollectionTypeBands
+                    )
+                  : getInitialSlideIndex(
+                      selectedWatchCase,
+                      selectedCollectionTypeWatchFaces
+                    )
+              }
               navigation={{
                 prevEl: `.${HomePageStyles.custom_prev_button}`,
                 nextEl: `.${HomePageStyles.custom_next_button}`,
@@ -456,28 +671,62 @@ const HomePage = () => {
                 swiperRef.current = swiper;
               }}
               onSlideChange={(swiper) => {
-                const centeredBand =
-                  selectedCollectionTypeBands[swiper.activeIndex];
-                setSelectedWatchBand(centeredBand.bandModel); // Set the centered band
-                setSelectedWatchBandName(centeredBand.bandName);
-                setSelectedWatchBandImageUrl(centeredBand.imagePath);
-                setSelectedWatchFaceImageUrl(centeredBand.watchFaceImageUrl);
+                if (selectedCustomizeOption === BAND_TEXT) {
+                  const centeredBand =
+                    selectedCollectionTypeBands[swiper.activeIndex];
+                  setSelectedWatchBand(centeredBand.bandModel);
+                  setSelectedWatchBandName(centeredBand.bandName);
+                  setSelectedWatchBandImageUrl(centeredBand.imagePath);
+                  setSelectedWatchFaceImageUrl(centeredBand.watchFaceImageUrl);
+                } else if (selectedCustomizeOption === CASE_TEXT) {
+                  const centeredCase =
+                    selectedCollectionTypeWatchFaces[swiper.activeIndex];
+                  setSelectedWatchCase(
+                    centeredCase.watchFaceCaseModel as ICaseType
+                  );
+                  setSelectedWatchFaceName(centeredCase.watchFaceName);
+                  setSelectedWatchFaceImageUrl(centeredCase.imagePath);
+                }
                 setCenteredIndex(swiper.activeIndex); // Update centered slide index
               }}
+              // onSlideChange={(swiper) => {
+              //   const centeredBand =
+              //     selectedCollectionTypeBands[swiper.activeIndex];
+              //   setSelectedWatchBand(centeredBand.bandModel); // Set the centered band
+              //   setSelectedWatchBandName(centeredBand.bandName);
+              //   setSelectedWatchBandImageUrl(centeredBand.imagePath);
+              //   setSelectedWatchFaceImageUrl(centeredBand.watchFaceImageUrl);
+              //   setCenteredIndex(swiper.activeIndex); // Update centered slide index
+              // }}
               style={{
                 position: "relative",
-                zIndex: 1,
+                zIndex: selectedCustomizeOption === BAND_TEXT ? 1 : 3,
               }}
               className={`${HomePageStyles.swiper_container} ${
                 isInitialLoad ? `${HomePageStyles.initial_loaded}` : ""
               }`}
             >
-              {selectedCollectionTypeBands?.map((item) => (
-                <SwiperSlide key={item.imagePath} className={HomePageStyles.swiper_slide}>
+              {(selectedCustomizeOption === BAND_TEXT
+                ? selectedCollectionTypeBands
+                : selectedCollectionTypeWatchFaces
+              )?.map((item) => (
+                <SwiperSlide
+                  key={item.imagePath}
+                  className={HomePageStyles.swiper_slide}
+                >
                   <img
                     src={item.imagePath}
-                    alt="Apple Watch Strap"
-                    className={`${HomePageStyles.landingPageAppleWatch} ${HomePageStyles.landingPageAppleWatchBlackBeltStap}`}
+                    alt={
+                      selectedCustomizeOption === BAND_TEXT
+                        ? "Apple Watch Strap"
+                        : "Apple Watch Case"
+                    }
+                    className={`${HomePageStyles.landingPageAppleWatch} ${
+                      selectedCustomizeOption === BAND_TEXT
+                        ? HomePageStyles.landingPageAppleWatchBlackBeltStap
+                        : HomePageStyles.landingPageAppleWatchCase
+                    }`}
+                    // className={`${HomePageStyles.landingPageAppleWatch} ${HomePageStyles.landingPageAppleWatchBlackBeltStap}`}
                   />
                 </SwiperSlide>
               ))}
@@ -495,26 +744,32 @@ const HomePage = () => {
               : ""
           }`}
         >
-          {!selectedCustomizeOption && (
+          {selectedCustomizeOption !== "Band" && (
             <img
               src={selectedWatchBandImageUrl}
               alt="Apple Watch black Strap"
-              className={`${HomePageStyles.landingPageAppleWatch} ${HomePageStyles.landingPageAppleWatchBlackBeltStap} ${
+              className={`${HomePageStyles.landingPageAppleWatch} ${
+                HomePageStyles.landingPageAppleWatchBlackBeltStap
+              } ${
                 isGetStartedButtonClicked
                   ? HomePageStyles.landingPageAppleWatchContainerWhenGetStartedClicked
                   : ""
               } `}
             />
           )}
-          <img
-            src={selectedWatchFaceImageUrl}
-            alt="Apple Watch face"
-            className={`${HomePageStyles.landingPageAppleWatch} ${HomePageStyles.landingPageAppleWatchFace} ${
-              isGetStartedButtonClicked
-                ? HomePageStyles.landingPageAppleWatchContainerWhenGetStartedClicked
-                : ""
-            } `}
-          />
+          {selectedCustomizeOption !== "Case" && (
+            <img
+              src={selectedWatchFaceImageUrl}
+              alt="Apple Watch face"
+              className={`${HomePageStyles.landingPageAppleWatch} ${
+                HomePageStyles.landingPageAppleWatchFace
+              } ${
+                isGetStartedButtonClicked
+                  ? HomePageStyles.landingPageAppleWatchContainerWhenGetStartedClicked
+                  : ""
+              } `}
+            />
+          )}
         </Box>
       </Box>
       {!isGetStartedButtonClicked && (
