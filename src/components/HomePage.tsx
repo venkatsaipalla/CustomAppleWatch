@@ -466,15 +466,13 @@ const HomePage = () => {
               style={{
                 position: "relative",
                 zIndex: 1,
-                height: "56vh",
-                paddingRight: "87px",
               }}
               className={`${HomePageStyles.swiper_container} ${
                 isInitialLoad ? `${HomePageStyles.initial_loaded}` : ""
               }`}
             >
               {selectedCollectionTypeBands?.map((item) => (
-                <SwiperSlide key={item.imagePath} style={{ width: "312px" }}>
+                <SwiperSlide key={item.imagePath} className={HomePageStyles.swiper_slide}>
                   <img
                     src={item.imagePath}
                     alt="Apple Watch Strap"
@@ -500,13 +498,21 @@ const HomePage = () => {
             <img
               src={selectedWatchBandImageUrl}
               alt="Apple Watch black Strap"
-              className={`${HomePageStyles.landingPageAppleWatch} ${HomePageStyles.landingPageAppleWatchBlackBeltStap}`}
+              className={`${HomePageStyles.landingPageAppleWatch} ${HomePageStyles.landingPageAppleWatchBlackBeltStap} ${
+                isGetStartedButtonClicked
+                  ? HomePageStyles.landingPageAppleWatchContainerWhenGetStartedClicked
+                  : ""
+              } `}
             />
           )}
           <img
             src={selectedWatchFaceImageUrl}
             alt="Apple Watch face"
-            className={`${HomePageStyles.landingPageAppleWatch} ${HomePageStyles.landingPageAppleWatchFace}`}
+            className={`${HomePageStyles.landingPageAppleWatch} ${HomePageStyles.landingPageAppleWatchFace} ${
+              isGetStartedButtonClicked
+                ? HomePageStyles.landingPageAppleWatchContainerWhenGetStartedClicked
+                : ""
+            } `}
           />
         </Box>
       </Box>
