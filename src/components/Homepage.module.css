@@ -158,13 +158,22 @@
 .swiper_container.initial-loaded {
   opacity: 1;
 }
-
+.mainContainer{
+  top:1rem
+}
 @media screen and (max-width: 550px) {
   .container {
     max-width: 91.2%;
   }
   .swiper_container {
     padding-right: 37px !important;
+  }
+  .mainContainer{
+    top:2rem;
+    height: 49vh;
+  }
+  .WatchInfoDisplayContainer{
+    padding-top: 1rem;
   }
 }
 
@@ -173,6 +182,12 @@
     letter-spacing: 0;
     line-height: 1.1;
     font-size: 2.5rem !important;
+  }
+  .mainContainer{
+    top:2rem
+  }
+  .WatchInfoDisplayContainer{
+    padding-top: 2rem;
   }
   /* .landingPageAppleWatchContainer {
     transform: translateY(476px) scale(1.7);
@@ -292,7 +307,7 @@
   }
 }
 
-@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) {
+@media only screen and (min-width: 768px) and (max-width: 1024px) {
   .landingPageAppleWatchContainer {
     transform: translateY(146%) scale(2);
   }
@@ -301,13 +316,21 @@
     transition: 1.2s ease-in-out 0.4s;
     min-height: 18.4705882353rem;
   }
+  .swiper_container {
+    padding-right: 21px !important;
+  }
 }
-@media screen and (min-width: 1280px) and (max-width: 1440px) {
+@media screen and (min-width: 1024px) and (max-width: 1280px) {
+  .swiper_container {
+    padding-right: 21px !important;
+  }
+}
+@media screen and (min-width: 1280px) and (max-width: 1441px) {
   .container {
     max-width: 92%;
   }
   .swiper_container {
-    padding-right: 66px !important;
+    padding-right: 21px !important;
   }
 }
 
@@ -315,10 +338,23 @@
   .container {
     max-width: 91.1%;
   }
+  .WatchInfoDisplayContainer{
+    padding-top: 2rem;
+  }
+  .mainContainer{
+    top:2rem
+  }
+  
 }
 
 @media screen and (min-width: 1920px) {
   .container {
     max-width: 1320px;
+  }
+  .WatchInfoDisplayContainer{
+    padding-top: 3rem;
+  }
+  .mainContainer{
+    top:2rem
   }
 }

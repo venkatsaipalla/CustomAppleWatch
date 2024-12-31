@@ -421,11 +421,12 @@ const HomePage = () => {
         // alignItems="center"
         style={{
           position: "relative",
-          top: isGetStartedButtonClicked ? "1rem" : "13vh",
+          top: isGetStartedButtonClicked ? "" : "13vh",
           zIndex: 1,
           margin: "0 auto",
           width: "100vw",
         }}
+        className={HomePageStyles.mainContainer}
       >
         {isGetStartedButtonClicked && selectedCustomizeOption && (
           <Box>
