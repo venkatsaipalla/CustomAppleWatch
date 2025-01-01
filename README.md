@@ -132,3 +132,20 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 
 ## Complexity and Huddle 
 - **Asset Management** Different watchFaces for different Watch Bands 
+
+Here is the corrected version:
+
+**Wow Factors I Achieved (in 3 days):**  
+1. Smooth transition effect of the watch on clicking the "Get Started" button.  
+2. Custom swipe-slide component that takes a list of bands/watch cases and renders the images.  
+3. Centered/active slide automatically navigates to the particular slide based on the selected band or watch case.  
+4. Smooth transition effect on opening and closing the "Customize" options (size, case, band).  
+5. Based on the selected band/watch face, on clicking "Save" redirects to the purchase link for the particular watch type on apple.com.  
+6. Custom arrows to swipe left and right and their functionality.  
+7. Responsive on mobile (iPhone) and laptop.  
+8. Handled the change of watch faces based on the band color/type when the user swipes through the bands.  
+
+**Things Left Due to Time Constraints:**  
+1. UI update for changing the collection type and displaying the corresponding images (assets) is pending.  
+2. Size change functionality (46mm, 44mm) is pending.  
+3. Minor adjustments for responsiveness on other devices.  
