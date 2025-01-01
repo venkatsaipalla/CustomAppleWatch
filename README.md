@@ -1,70 +1,134 @@
-# Getting Started with Create React App
+## Live Link : https://venkat-apple-studio.vercel.app/
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Apple Watch Studio
 
-## Available Scripts
+Apple Watch Studio is a dynamic web application that allows users to customize and explore Apple Watch bands and cases through an interactive carousel. The project is built using React and integrates features like dynamic data rendering, conditional Swiper carousels, and user-centric design to enhance the customization experience.
 
-In the project directory, you can run:
+## Features
 
-### `npm start`
+- **Dynamic Customization:** Users can select different bands and cases to visualize their preferences.
+- **Interactive Swiper Carousel:** Displays bands and cases with centered slides for a seamless browsing experience.
+- **Real-Time State Management:** Tracks user-selected options and updates UI dynamically.
+- **Responsive Design:** Ensures optimal experience across devices.
+- **Save Selected Watch :** Redirected to apple site for the selected watch face/band etc.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Tech Stack
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- **Frontend:** React, TypeScript
+- **UI Library:** Swiper.js for carousels
+- **State Management:** React hooks (`useState`, `useEffect`)
+- **Swiper Side Mangement:** React Ref (`useRef`)
 
-### `npm test`
+## Installation
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+1. Clone the repository:
 
-### `npm run build`
+   ```bash
+   git clone https://github.com/your-repo/apple-watch-studio.git
+   ```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+2. Navigate to the project directory:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+   ```bash
+   cd apple-watch-studio
+   ```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+3. Install dependencies:
 
-### `npm run eject`
+   ```bash
+   npm install --legacy-peer-deps
+   ```
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+4. Start the development server:
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+   ```bash
+   npm start
+   ```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+5. Open your browser and navigate to `http://localhost:3000`.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## File Structure
 
-## Learn More
+```
+apple-watch-studio/
+├── src/
+│   ├── commonConstants/
+│   │   ├── constanst.tsx  // Handles the common constans
+│   ├── components/
+│   │   ├── HomePage.tsx  // main component
+│   │   ├── AppleWatchCustomizeOptions.tsx   // Component for to show customization options
+│   │   ├── Header.tsx   // Component for Header
+│   │   ├── HomePageStyles.module.css   // Styles for the home page
+│   ├── hooks/
+│   │   ├── useDeviceSize.ts   // customhook used to get device size dynamically
+│   ├── styles/
+│   │   ├── HomePageStyles.module.css   // Styles for the home page
+│   ├── App.tsx   // Main application file
+├── public/
+│   ├── images/   // Static assets like band and case images
+├── README.md     // Documentation
+```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## Usage
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### Customizing Watch Bands
 
-### Code Splitting
+1. Select the "Bands" option from the menu.
+2. Use the carousel to browse through available bands.
+3. Click on a band to select it; the selected band will be highlighted.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+### Customizing Watch Cases
 
-### Analyzing the Bundle Size
+1. Select the "Cases" option from the menu.
+2. Use the carousel to browse through available cases.
+3. Click on a case to select it; the selected case will be highlighted.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+## Key Functions
 
-### Making a Progressive Web App
+### `getInitialSlideIndex`
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+Determines the initial slide index for the Swiper component based on the user's selection.
 
-### Advanced Configuration
+```typescript
+ const getInitialSlideIndex = (
+    selectedModel: string,
+    collection: {
+      bandModel?: string;
+      watchFaceModel?: string;
+      watchFaceCaseModel?: string;
+    }[]
+  ) => {
+    const index = collection.findIndex(
+      (item) =>
+        item.bandModel === selectedModel ||
+        item.watchFaceModel === selectedModel ||
+        item.watchFaceCaseModel === selectedModel
+    );
+    console.log({ selectedModel, index });
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+    return index !== -1 ? index : 0; // Default to 0 if not found
+  };
+```
 
-### Deployment
+### Dynamic Rendering
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+The Swiper component dynamically updates based on the selected customization option (`Bands` or `Cases`).
 
-### `npm run build` fails to minify
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## Future Enhancements
+
+- Collection Type Change.
+- Integrate a backend API for real-time data.
+
+
+## License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+
+## Acknowledgments
+
+- **Swiper.js** for the interactive carousel.
+- **React Community** for extensive documentation and support.
+
+## Complexity and Huddle 
+- **Asset Management** Different watchFaces for different Watch Bands 

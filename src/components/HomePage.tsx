@@ -799,15 +799,6 @@ const HomePage = () => {
                 }
                 setCenteredIndex(swiper.activeIndex); // Update centered slide index
               }}
-              // onSlideChange={(swiper) => {
-              //   const centeredBand =
-              //     selectedCollectionTypeBands[swiper.activeIndex];
-              //   setSelectedWatchBand(centeredBand.bandModel); // Set the centered band
-              //   setSelectedWatchBandName(centeredBand.bandName);
-              //   setSelectedWatchBandImageUrl(centeredBand.imagePath);
-              //   setSelectedWatchFaceImageUrl(centeredBand.watchFaceImageUrl);
-              //   setCenteredIndex(swiper.activeIndex); // Update centered slide index
-              // }}
               style={{
                 position: "relative",
                 zIndex: selectedCustomizeOption === BAND_TEXT ? 1 : 3,
