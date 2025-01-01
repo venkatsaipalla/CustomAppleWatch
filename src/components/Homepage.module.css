@@ -8,6 +8,8 @@
   height: 100vh;
   position: relative;
   overflow: hidden auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 }
 .container {
   max-width: 96vw;
@@ -163,6 +165,9 @@
 }
 .mainContainer{
   top:1rem
+}
+.mainContainerWhenGetStarttedButtonNotClicked{
+  top:6vh
 }
 @media screen and (max-width: 550px) {
   .container {
@@ -322,10 +327,19 @@
   .swiper_container {
     padding-right: 21px !important;
   }
+  .landingPageAppleWatch{
+    min-height: 18.4705882353rem;
+  }
 }
 @media screen and (min-width: 1024px) and (max-width: 1280px) {
   .swiper_container {
     padding-right: 21px !important;
+  }
+  .landingPageAppleWatch{
+    min-height: 18.4705882353rem;
+  }
+  .mainContainerWhenGetStarttedButtonNotClicked{
+    top: 2vh;
   }
 }
 @media screen and (min-width: 1280px) and (max-width: 1441px) {
@@ -334,6 +348,9 @@
   }
   .swiper_container {
     padding-right: 21px !important;
+  }
+  .mainContainerWhenGetStarttedButtonNotClicked{
+    top: 2vh;
   }
 }
 
@@ -346,6 +363,9 @@
   }
   .mainContainer{
     top:2rem
+  }
+  .mainContainerWhenGetStarttedButtonNotClicked{
+    top:13vh
   }
   
 }

@@ -17,7 +17,7 @@ import HeaderStyles from "./Header.module.css";
 import HomePageStyles from "./Homepage.module.css";
 import { Key, useRef, useState } from "react";
 import { ICollectionsType } from "./interfaces/HomepageInterface";
-import { collectionsTypeList } from "../commonConstants/constants";
+import { APPLE_WATCH_HERMES_SERIES_10_TEXT, APPLE_WATCH_SE_TEXT, APPLE_WATCH_SERIES_10_TEXT, collectionsTypeList } from "../commonConstants/constants";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 interface IHeaderProps {
   isGetStartedButtonClicked: boolean;
@@ -25,6 +25,8 @@ interface IHeaderProps {
   selectedCollectionsType: ICollectionsType;
   isModalOpen: boolean;
   setIsModalOpen: (value: boolean) => void;
+  selectedWatchFaceName:{name:string ,id:string}
+  selectedWatchBandName:{name:string ,id:string}
 }
 const Header = (props: IHeaderProps) => {
   const {
@@ -33,6 +35,8 @@ const Header = (props: IHeaderProps) => {
     selectedCollectionsType,
     isModalOpen,
     setIsModalOpen,
+    selectedWatchBandName,
+    selectedWatchFaceName
   } = props;
   const selectRef = useRef<HTMLDivElement>(null);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -41,6 +45,22 @@ const Header = (props: IHeaderProps) => {
     setAnchorEl(event.currentTarget);
     setIsModalOpen(!isModalOpen);
   };
+  const getRedirectionLinkForSelectedWatch = (watchCaseId:string,watchBandId:string)=>{
+    console.log({watchCaseId,watchBandId})
+    let appleWatchDomainPath = "apple-watch"
+    if(selectedCollectionsType.typeName===APPLE_WATCH_HERMES_SERIES_10_TEXT){
+      appleWatchDomainPath = "apple-watch-hermes"
+    }
+    else if(selectedCollectionsType.typeName===APPLE_WATCH_SE_TEXT){
+      appleWatchDomainPath = "apple-watch-se"
+    }
+    let url= `https://www.apple.com/shop/buy-watch/${appleWatchDomainPath}?configured=true&option.watch_cases=${watchCaseId}/A&option.watch_bands=${watchBandId}/A&product=Z0YQ&step=select`
+    return url
+  }
+  const handleSaveButtonClick = ()=>{
+    let url = getRedirectionLinkForSelectedWatch(selectedWatchFaceName.id,selectedWatchBandName.id)
+    window.open(url, '_blank')
+  }
 
   return (
     <Box
@@ -161,6 +181,7 @@ const Header = (props: IHeaderProps) => {
         <Button
           color="secondary"
           size="medium"
+          onClick={handleSaveButtonClick}
           className={`${HeaderStyles.transitionEffect} ${
             isGetStartedButtonClicked
               ? HeaderStyles.visible

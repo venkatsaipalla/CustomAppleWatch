@@ -26,6 +26,7 @@ interface IappleWatchCustomizeOptions {
   selectedWatchBand: string;
   setSelectedWatchSize: (value: IWatchSizes) => void;
   selectedWatchSize: string;
+  onClickofBandText: (band: string) => void;
 }
 const AppleWatchCustomizeOptions = (props: IappleWatchCustomizeOptions) => {
   const {
@@ -37,6 +38,7 @@ const AppleWatchCustomizeOptions = (props: IappleWatchCustomizeOptions) => {
     setSelectedWatchBand,
     setSelectedWatchSize,
     selectedWatchSize,
+    onClickofBandText,
   } = props;
   const sizeRef = useRef<HTMLDivElement>(null);
   const caseRef = useRef<HTMLDivElement>(null);
@@ -45,6 +47,10 @@ const AppleWatchCustomizeOptions = (props: IappleWatchCustomizeOptions) => {
   const [sizesWidth, setSizesWidth] = useState(100);
   const [caseWidth, setCaseWidth] = useState(100);
   const [bandWidth, setBandWidth] = useState(100);
+  const handleBandTextClick = (band: string) => {
+    setSelectedWatchBand(band);
+    onClickofBandText(band);
+  };
 
   const updateWidths = () => {
     if (sizeRef.current) {
@@ -63,113 +69,142 @@ const AppleWatchCustomizeOptions = (props: IappleWatchCustomizeOptions) => {
     updateWidths();
   }, [selectedCustomizeOption]);
   return (
-    <Box display="flex" justifyContent="center" mt={5}>
+    <Box
+      style={{
+        width: "100%",
+        padding: "0 24px",
+        overflow: "hidden",
+      }}
+    >
       <Box
-        className={`${HomepageCss.CustomOptionsDiv} ${
-          selectedCustomizeOption === SIZE_TEXT
-            ? HomepageCss.CustomOptionsDivExpanded
-            : ""
-        }`}
+        display="flex"
+        justifyContent="center"
+        mt={5}
         style={{
-          width:
-            selectedCustomizeOption === SIZE_TEXT ? `${sizesWidth}px` : "100px",
-          transition: "width 0.5s ease",
+          overflowX: "auto", // Enables horizontal scrolling
+          scrollbarWidth: "none", // Hides scrollbar for Firefox
+          msOverflowStyle: "none", // Hides scrollbar for Internet Explorer and Edge
         }}
       >
-        <SizeButtonIcon />
-        <div ref={sizeRef} style={{ display: "flex", gap: "5px" }}>
-          {selectedCustomizeOption === SIZE_TEXT ? (
-            APPLE_WATCH_SIZES_LIST.map((eachSize: string) => (
+        <Box
+          className={`${HomepageCss.CustomOptionsDiv} ${
+            selectedCustomizeOption === SIZE_TEXT
+              ? HomepageCss.CustomOptionsDivExpanded
+              : ""
+          }`}
+          style={{
+            width:
+              selectedCustomizeOption === SIZE_TEXT
+                ? `${sizesWidth}px`
+                : "100px",
+            transition: "width 0.5s ease",
+          }}
+        >
+          <SizeButtonIcon />
+          <div ref={sizeRef} style={{ display: "flex", gap: "5px" }}>
+            {selectedCustomizeOption === SIZE_TEXT ? (
+              APPLE_WATCH_SIZES_LIST.map((eachSize: string) => (
+                <Typography
+                  className={HomepageCss.CustomOptionsText}
+                  onClick={() => setSelectedWatchSize(eachSize as IWatchSizes)}
+                  style={{
+                    fontWeight:
+                      selectedWatchSize == eachSize ? "bold" : "normal",
+                  }}
+                >
+                  {eachSize}
+                </Typography>
+              ))
+            ) : (
               <Typography
                 className={HomepageCss.CustomOptionsText}
-                onClick={() => setSelectedWatchSize(eachSize as IWatchSizes)}
-                style={{ fontWeight: selectedWatchSize==eachSize ? "bold" : "normal" }}
+                onClick={() => setSelectedCustomizeOption(SIZE_TEXT)}
               >
-                {eachSize}
+                Size
               </Typography>
-            ))
-          ) : (
-            <Typography
-              className={HomepageCss.CustomOptionsText}
-              onClick={() => setSelectedCustomizeOption(SIZE_TEXT)}
-            >
-              Size
-            </Typography>
-          )}
-        </div>
-      </Box>
-      {/* Case Option */}
-      <Box
-        className={`${HomepageCss.CustomOptionsDiv} ${
-          selectedCustomizeOption === CASE_TEXT
-            ? HomepageCss.CustomOptionsDivExpanded
-            : ""
-        }`}
-        style={{
-          width:
-            selectedCustomizeOption === CASE_TEXT ? `${caseWidth}px` : "100px",
-          transition: "width 0.5s ease",
-        }}
-      >
-        <CaseButtonIcon />
-        <div ref={caseRef} style={{ display: "flex", gap: "5px" }}>
-          {selectedCustomizeOption === CASE_TEXT ? (
-            APPLE_WATCH_CASES_LIST.map((eachCase: string) => (
+            )}
+          </div>
+        </Box>
+        {/* Case Option */}
+        <Box
+          className={`${HomepageCss.CustomOptionsDiv} ${
+            selectedCustomizeOption === CASE_TEXT
+              ? HomepageCss.CustomOptionsDivExpanded
+              : ""
+          }`}
+          style={{
+            width:
+              selectedCustomizeOption === CASE_TEXT
+                ? `${caseWidth}px`
+                : "100px",
+            transition: "width 0.5s ease",
+          }}
+        >
+          <CaseButtonIcon />
+          <div ref={caseRef} style={{ display: "flex", gap: "5px" }}>
+            {selectedCustomizeOption === CASE_TEXT ? (
+              APPLE_WATCH_CASES_LIST.map((eachCase: string) => (
+                <Typography
+                  className={HomepageCss.CustomOptionsText}
+                  onClick={() => setSelectedWatchCase(eachCase as ICaseType)}
+                  style={{
+                    fontWeight:
+                      selectedWatchCase == eachCase ? "bold" : "normal",
+                  }}
+                >
+                  {eachCase}
+                </Typography>
+              ))
+            ) : (
               <Typography
                 className={HomepageCss.CustomOptionsText}
-                onClick={() => setSelectedWatchCase(eachCase as ICaseType)}
-                style={{ fontWeight: selectedWatchCase==eachCase ? "bold" : "normal" }}
+                onClick={() => setSelectedCustomizeOption(CASE_TEXT)}
               >
-                {eachCase}
+                Case
               </Typography>
-            ))
-          ) : (
-            <Typography
-              className={HomepageCss.CustomOptionsText}
-              onClick={() => setSelectedCustomizeOption(CASE_TEXT)}
-            >
-              Case
-            </Typography>
-          )}
-        </div>
-      </Box>
-      {/* Band Option */}
-      <Box
-        className={`${HomepageCss.CustomOptionsDiv} ${
-          selectedCustomizeOption === BAND_TEXT
-            ? HomepageCss.CustomOptionsDivExpanded
-            : ""
-        }`}
-        style={{
-          width:
-            selectedCustomizeOption === BAND_TEXT ? `${bandWidth}px` : "100px",
-          transition: "width 0.5s ease",
-        }}
-      >
-        <BandButtonIcon />
-        <div ref={bandRef} style={{ display: "flex", gap: "5px" }}>
-          {selectedCustomizeOption === BAND_TEXT ? (
-            APPLE_WATCH_BANDS_LIST.map((eachBand: string) => (
+            )}
+          </div>
+        </Box>
+        {/* Band Option */}
+        <Box
+          className={`${HomepageCss.CustomOptionsDiv} ${
+            selectedCustomizeOption === BAND_TEXT
+              ? HomepageCss.CustomOptionsDivExpanded
+              : ""
+          }`}
+          style={{
+            width:
+              selectedCustomizeOption === BAND_TEXT
+                ? `${bandWidth}px`
+                : "100px",
+            transition: "width 0.5s ease",
+          }}
+        >
+          <BandButtonIcon />
+          <div ref={bandRef} style={{ display: "flex", gap: "5px" }}>
+            {selectedCustomizeOption === BAND_TEXT ? (
+              APPLE_WATCH_BANDS_LIST.map((eachBand: string) => (
+                <Typography
+                  className={HomepageCss.CustomBandsText}
+                  onClick={() => handleBandTextClick(eachBand)}
+                  style={{
+                    fontWeight:
+                      selectedWatchBand === eachBand ? "bold" : "normal",
+                  }}
+                >
+                  {eachBand}
+                </Typography>
+              ))
+            ) : (
               <Typography
-                className={HomepageCss.CustomBandsText}
-                onClick={() => setSelectedWatchBand(eachBand)}
-                style={{
-                  fontWeight:
-                    selectedWatchBand === eachBand ? "bold" : "normal",
-                }}
+                className={HomepageCss.CustomOptionsText}
+                onClick={() => setSelectedCustomizeOption(BAND_TEXT)}
               >
-                {eachBand}
+                Band
               </Typography>
-            ))
-          ) : (
-            <Typography
-              className={HomepageCss.CustomOptionsText}
-              onClick={() => setSelectedCustomizeOption(BAND_TEXT)}
-            >
-              Band
-            </Typography>
-          )}
-        </div>
+            )}
+          </div>
+        </Box>
       </Box>
     </Box>
   );

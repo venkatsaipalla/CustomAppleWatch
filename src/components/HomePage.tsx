@@ -130,6 +130,9 @@ const useStyles = makeStyles(
 const HomePage = () => {
   const classes = useStyles();
   const deviceSize = useDeviceSize();
+  // useEffect(() => {
+  //   document.title = "Venkat Apple Watch Studio";
+  // }, []);
   const [isGetStartedButtonClicked, setIsGetStartedButtonClicked] =
     useState(false);
   const [selectedCollectionsType, setSelectedCollectionsType] =
@@ -147,10 +150,14 @@ const HomePage = () => {
   const [selectedWatchCase, setSelectedWatchCase] =
     useState<ICaseType>(ALUMINIUM_TEXT);
   const [selectedWatchBand, setSelectedWatchBand] = useState(SOLO_LOOP_TEXT);
-  const [selectedWatchBandName, setSelectedWatchBandName] =
-    useState("Black Solo Loop");
-  const [selectedWatchFaceName, setSelectedWatchFaceName] =
-    useState("Jet Black");
+  const [selectedWatchBandName, setSelectedWatchBandName] = useState({
+    name: "Black Solo Loop",
+    id: "MYA33AM",
+  });
+  const [selectedWatchFaceName, setSelectedWatchFaceName] = useState({
+    name: "Jet Black",
+    id: "MWX13LW",
+  });
   const [selectedWatchBandImageUrl, setSelectedWatchBandImageUrl] = useState(
     HomepageAppleWatchBlackStrap
   );
@@ -164,6 +171,7 @@ const HomePage = () => {
         imagePath: string;
         bandName: string;
         watchFaceImageUrl: string;
+        id: string;
       }[]
     >([]);
   const [
@@ -187,13 +195,13 @@ const HomePage = () => {
       watchBandImageUrl: selectedWatchBandImageUrl,
       bandType: selectedWatchBand,
       collectionType: selectedCollectionsType,
-      title: `${selectedWatchSize} ${selectedWatchFaceName} ${selectedWatchCase} Case with ${selectedWatchBandName}`,
+      title: `${selectedWatchSize} ${selectedWatchFaceName.name} ${selectedWatchCase} Case with ${selectedWatchBandName.name}`,
       cost: "$429",
     });
   const [centeredIndex, setCenteredIndex] = useState(0); // To store the centered slide index
   const swiperRef = useRef<SwiperType | null>(null);
   const [isInitialLoad, setIsInitialLoad] = useState(true);
-  console.log({selectedCollectionTypeWatchFaces})
+  console.log({ selectedCollectionTypeWatchFaces });
   useEffect(() => {
     if (
       selectedCollectionsType.typeName === APPLE_WATCH_SERIES_10_TEXT ||
@@ -217,12 +225,13 @@ const HomePage = () => {
           bandModel: string;
           imagePath: string;
           bandName: string;
+          id: string;
           watchFaceImageUrl: string;
         }[]
       );
       setSelectedCollectionsTypeWatchFaces(watchFaces);
     }
-  }, [selectedCollectionsType,selectedWatchBand]);
+  }, [selectedCollectionsType, selectedWatchBand]);
   console.log({ selectedCollectionTypeBands });
   useEffect(() => {
     // Set a delay to trigger the initial transition after render
@@ -241,7 +250,7 @@ const HomePage = () => {
         watchFaceImageUrl: selectedWatchFaceImageUrl,
         watchBandImageUrl: selectedWatchBandImageUrl,
         collectionType: selectedCollectionsType,
-        title: `${selectedWatchSize} ${selectedWatchFaceName} ${selectedWatchCase} Case with ${selectedWatchBandName}`,
+        title: `${selectedWatchSize} ${selectedWatchFaceName.name} ${selectedWatchCase} Case with ${selectedWatchBandName.name}`,
         cost: "$429",
       });
     }
@@ -252,142 +261,212 @@ const HomePage = () => {
     selectedWatchBand,
     selectedCollectionsType,
     selectedWatchBandName,
-    selectedWatchFaceName
+    selectedWatchFaceName,
   ]);
   const getWatchBandsImagesBasedOnBandText = (band: string) => {
     const mapImageWithBand = (
       imagePath: string,
       bandName: string,
+      id: string,
       watchFaceImageUrl?: string
     ) => ({
       bandModel: band,
       bandName: bandName,
       imagePath,
+      id,
       watchFaceImageUrl: watchFaceImageUrl || HomepageAppleWatchFace,
     });
 
     switch (band) {
       case STAINLESS_STEEL_TEXT:
         return [
-          mapImageWithBand(stainless_steel_band_1, "Natural Milanese Loop"),
-          mapImageWithBand(stainless_steel_band_2, "Gold Milanese Loop"),
-          mapImageWithBand(stainless_steel_band_3, "Slate Milanese Loop"),
-          mapImageWithBand(stainless_steel_band_4, "Natural Link Bracelet"),
-          mapImageWithBand(stainless_steel_band_5, "Gold Link Bracelet"),
-          mapImageWithBand(stainless_steel_band_6, "Slate Link Bracelet"),
+          mapImageWithBand(
+            stainless_steel_band_1,
+            "Natural Milanese Loop",
+            "MC7J4AM"
+          ),
+          mapImageWithBand(
+            stainless_steel_band_2,
+            "Gold Milanese Loop",
+            "MC7K4AM"
+          ),
+          mapImageWithBand(
+            stainless_steel_band_3,
+            "Slate Milanese Loop",
+            "MC7L4AM"
+          ),
+          mapImageWithBand(
+            stainless_steel_band_4,
+            "Natural Link Bracelet",
+            "MXMF3AM"
+          ),
+          mapImageWithBand(
+            stainless_steel_band_5,
+            "Gold Link Bracelet",
+            "MXMH3AM"
+          ),
+          mapImageWithBand(
+            stainless_steel_band_6,
+            "Slate Link Bracelet",
+            "MXMK3AM"
+          ),
         ];
       case SPORT_LOOP_TEXT:
         return [
-          mapImageWithBand(sport_loop_band_1, "Ultramarine Sport Loop"),
-          mapImageWithBand(sport_loop_band_2, "Lake Green Sport Loop"),
-          mapImageWithBand(sport_loop_band_3, "Blue Cloud Sport Loop"),
-          mapImageWithBand(sport_loop_band_4, "Ink Sport Loop"),
-          mapImageWithBand(sport_loop_band_5, "Plum Sport Loop"),
+          mapImageWithBand(
+            sport_loop_band_1,
+            "Ultramarine Sport Loop",
+            "MXL73AM"
+          ),
+          mapImageWithBand(
+            sport_loop_band_2,
+            "Lake Green Sport Loop",
+            "MXL83AM"
+          ),
+          mapImageWithBand(
+            sport_loop_band_3,
+            "Blue Cloud Sport Loop",
+            "MXL53AM"
+          ),
+          mapImageWithBand(sport_loop_band_4, "Ink Sport Loop", "MXL33AM"),
+          mapImageWithBand(sport_loop_band_5, "Plum Sport Loop", "MXL63AM"),
           mapImageWithBand(
             sport_loop_band_6,
             "Pride Edition Sport Loop",
+            "MN6L3AM",
             sport_loop_band_6_46mm_watchface
           ),
           mapImageWithBand(
             sport_loop_band_7,
             "Black Unity Sport Loop",
+            "MQTJ3AM",
             sport_loop_band_7_46mm_watchface
           ),
         ];
       case SPORT_BAND_TEXT:
         return [
-          mapImageWithBand(sport_band_1, "Lake Green Sport Band"),
-          mapImageWithBand(sport_band_2, "Stone Gray Sport Band"),
-          mapImageWithBand(sport_band_3, "Starlight Sport Band"),
-          mapImageWithBand(sport_band_4, "Plum Sport Band"),
-          mapImageWithBand(sport_band_5, "Black Sport Band"),
-          mapImageWithBand(sport_band_6, "Denim Sport Band"),
-          mapImageWithBand(sport_band_7, "Light Blush Sport Band"),
+          mapImageWithBand(sport_band_1, "Lake Green Sport Band", "MXLQ3AM"),
+          mapImageWithBand(sport_band_2, "Stone Gray Sport Band", "MXLX3AM"),
+          mapImageWithBand(sport_band_3, "Starlight Sport Band", "MXM63AM"),
+          mapImageWithBand(sport_band_4, "Plum Sport Band", "MXLT3AM"),
+          mapImageWithBand(sport_band_5, "Black Sport Band", "MXM23AM"),
+          mapImageWithBand(sport_band_6, "Denim Sport Band", "MXLV3AM"),
+          mapImageWithBand(sport_band_7, "Light Blush Sport Band", "MXM83AM"),
           mapImageWithBand(
             sport_band_8,
             "Pride Edition Sport Band",
+            "MRTN3AM",
             sport_band_8_46mm_watchface
           ),
           mapImageWithBand(
             sport_band_9,
             "Black Unity Sport Band - Unity Bloom",
+            "MYGW3AM",
             sport_band_9_46mm_watchface
           ),
           mapImageWithBand(
             sport_band_10,
             "Black Unity Sport Band",
+            "MJ4W3AM",
             sport_band_10_46mm_watchface
           ),
         ];
       case FINEWOVEN_TEXT:
         return [
-          mapImageWithBand(fineWoven_band_1, "Black Magnetic Link"),
-          mapImageWithBand(fineWoven_band_2, "Dark Taupe Magnetic Link"),
-          mapImageWithBand(fineWoven_band_3, "Blackberry Magnetic Link"),
+          mapImageWithBand(fineWoven_band_1, "Black Magnetic Link", "MXWY3AM"),
+          mapImageWithBand(
+            fineWoven_band_2,
+            "Dark Taupe Magnetic Link",
+            "MXWW3AM"
+          ),
+          mapImageWithBand(
+            fineWoven_band_3,
+            "Blackberry Magnetic Link",
+            "MXWT3AM"
+          ),
         ];
       case BRAIDED_SOLO_LOOP_TEXT:
         return [
           mapImageWithBand(
             braided_solo_loop_band_1,
-            "Lake Green Braided Solo Loop"
+            "Lake Green Braided Solo Loop",
+            "MY373AM"
           ),
           mapImageWithBand(
             braided_solo_loop_band_2,
-            "Midnight Braided Solo Loop"
+            "Midnight Braided Solo Loop",
+            "MY2P3AM"
           ),
-          mapImageWithBand(braided_solo_loop_band_3, "Denim Braided Solo Loop"),
+          mapImageWithBand(
+            braided_solo_loop_band_3,
+            "Denim Braided Solo Loop",
+            "MY223AM"
+          ),
           mapImageWithBand(
             braided_solo_loop_band_4,
-            "Chartreuse Braided Solo Loop"
+            "Chartreuse Braided Solo Loop",
+            "MY3W3AM"
           ),
           mapImageWithBand(
             braided_solo_loop_band_5,
-            "Magenta Braided Solo Loop"
+            "Magenta Braided Solo Loop",
+            "MY4E3AM"
           ),
           mapImageWithBand(
             braided_solo_loop_band_6,
             "Pride Edition Braided Solo Loop",
+            "MYGD3AM",
             braided_solo_loop_band_6_46mm_watchface
           ),
           mapImageWithBand(
             braided_solo_loop_band_7,
             "Black Unity Braided Solo Loop",
+            "MMWK3AM",
             braided_solo_loop_band_7_46mm_watchface
           ),
         ];
       case SOLO_LOOP_TEXT:
         return [
-          mapImageWithBand(solo_loop_band_1, "Star Fruit Solo Loop"),
-          mapImageWithBand(solo_loop_band_2, "Ultramarine Solo Loop"),
-          mapImageWithBand(solo_loop_band_3, "Lake Green Solo Loop"),
-          mapImageWithBand(solo_loop_band_4, "Black Solo Loop"),
-          mapImageWithBand(solo_loop_band_5, "Blush Solo Loop"),
+          mapImageWithBand(solo_loop_band_1, "Star Fruit Solo Loop", "MY803AM"),
+          mapImageWithBand(
+            solo_loop_band_2,
+            "Ultramarine Solo Loop",
+            "MY8E3AM"
+          ),
+          mapImageWithBand(solo_loop_band_3, "Lake Green Solo Loop", "MY8U3AM"),
+          mapImageWithBand(solo_loop_band_4, "Black Solo Loop", "MYA33AM"),
+          mapImageWithBand(solo_loop_band_5, "Blush Solo Loop", "MY9N3AM"),
         ];
       case NIKE_SPORT_LOOP_TEXT:
         return [
           mapImageWithBand(
             nike_sport_loop_band_1,
             "Black/Blue Nike Sport Loop",
+            "MYJD3AM",
             nike_sport_loop_band_1_46mm_watchface
           ),
           mapImageWithBand(
             nike_sport_loop_band_2,
             "Starlight/Pink Nike Sport Loop",
+            "MYJE3AM",
             nike_sport_loop_band_2_46mm_watchface
           ),
           mapImageWithBand(
             nike_sport_loop_band_3,
             "Grey/Blue Nike Sport Loop",
+            "MXU13AM",
             nike_sport_loop_band_3_46mm_watchface
           ),
           mapImageWithBand(
             nike_sport_loop_band_4,
             "Green/Grey Nike Sport Loop",
+            "MXU33AM",
             nike_sport_loop_band_4_46mm_watchface
           ),
           mapImageWithBand(
             nike_sport_loop_band_5,
             "Blue/Red Nike Sport Loop",
+            "MXU43AM",
             nike_sport_loop_band_5_46mm_watchface
           ),
         ];
@@ -396,46 +475,57 @@ const HomePage = () => {
           mapImageWithBand(
             nike_sport_band_1,
             "Volt Splash Nike Sport Band",
+            "MXU73AM",
             nike_sport_bands_1_46mm_watchface
           ),
           mapImageWithBand(
             nike_sport_band_2,
             "Magic Ember Nike Sport Band",
+            "MYLF3AM",
             nike_sport_bands_2_46mm_watchface
           ),
           mapImageWithBand(
             nike_sport_band_3,
             "Midnight Sky Nike Sport Band",
+            "MYL63AM",
             nike_sport_bands_3_46mm_watchface
           ),
           mapImageWithBand(
             nike_sport_band_4,
             "Pure Platinum Nike Sport Band",
+            "MYL43AM",
             nike_sport_bands_4_46mm_watchface
           ),
           mapImageWithBand(
             nike_sport_band_5,
             "Desert Stone Nike Sport Band",
+            "MYL83AM",
             nike_sport_bands_5_46mm_watchface
           ),
           mapImageWithBand(
             nike_sport_band_6,
             "Cargo Khaki Nike Sport Band",
+            "MYLD3AM",
             nike_sport_bands_6_46mm_watchface
           ),
           mapImageWithBand(
             nike_sport_band_7,
             "Blue Flame Nike Sport Band",
+            "MYLA3AM",
             nike_sport_bands_7_46mm_watchface
           ),
         ];
       default:
         return [
-          mapImageWithBand(solo_loop_band_1, "Star Fruit Solo Loop"),
-          mapImageWithBand(solo_loop_band_2, "Ultramarine Solo Loop"),
-          mapImageWithBand(solo_loop_band_3, "Lake Green Solo Loop"),
-          mapImageWithBand(solo_loop_band_4, "Black Solo Loop"),
-          mapImageWithBand(solo_loop_band_5, "Blush Solo Loop"),
+          mapImageWithBand(solo_loop_band_1, "Star Fruit Solo Loop", "MY803AM"),
+          mapImageWithBand(
+            solo_loop_band_2,
+            "Ultramarine Solo Loop",
+            "MY8E3AM"
+          ),
+          mapImageWithBand(solo_loop_band_3, "Lake Green Solo Loop", "MY8U3AM"),
+          mapImageWithBand(solo_loop_band_4, "Black Solo Loop", "MYA33AM"),
+          mapImageWithBand(solo_loop_band_5, "Blush Solo Loop", "MY9N3AM"),
         ];
     }
   };
@@ -589,27 +679,35 @@ const HomePage = () => {
         item.watchFaceModel === selectedModel ||
         item.watchFaceCaseModel === selectedModel
     );
+    console.log({ selectedModel, index });
+
     return index !== -1 ? index : 0; // Default to 0 if not found
   };
-
-  useEffect(() => {
+  const onClickofBandText = (band: string) => {
     if (swiperRef.current) {
+      const newIndex = getInitialSlideIndex(band, selectedCollectionTypeBands);
+      swiperRef.current.slideTo(newIndex);
+    }
+  };
+  console.log({ selectedWatchBand });
+  useEffect(() => {
+    if (selectedCustomizeOption === BAND_TEXT && swiperRef.current) {
       const newIndex = getInitialSlideIndex(
         selectedWatchBand,
         selectedCollectionTypeBands
       );
       swiperRef.current.slideTo(newIndex); // Programmatically move to the new index
     }
-  }, [selectedWatchBand]);
+  }, [selectedCustomizeOption]);
   useEffect(() => {
-    if (swiperRef.current) {
+    if (selectedCustomizeOption === CASE_TEXT && swiperRef.current) {
       const newIndex = getInitialSlideIndex(
         selectedWatchCase,
         selectedCollectionTypeWatchFaces
       );
       swiperRef.current.slideTo(newIndex); // Programmatically move to the new index
     }
-  }, [selectedWatchCase]);
+  }, [selectedWatchCase, selectedCustomizeOption]);
   return (
     <Box className={HomePageStyles.HomePageContainerCSS}>
       <Header
@@ -618,6 +716,8 @@ const HomePage = () => {
         selectedCollectionsType={selectedCollectionsType}
         isModalOpen={isModalOpen}
         setIsModalOpen={setIsModalOpen}
+        selectedWatchBandName={selectedWatchBandName}
+        selectedWatchFaceName={selectedWatchFaceName}
       />
       <Box
         display="flex"
@@ -626,12 +726,16 @@ const HomePage = () => {
         // alignItems="center"
         style={{
           position: "relative",
-          top: isGetStartedButtonClicked ? "" : "13vh",
+          // top: isGetStartedButtonClicked ? "" : "6vh",
           zIndex: 1,
           margin: "0 auto",
           width: "100vw",
         }}
-        className={HomePageStyles.mainContainer}
+        className={`${HomePageStyles.mainContainer} ${
+          !isGetStartedButtonClicked
+            ? `${HomePageStyles.mainContainerWhenGetStarttedButtonNotClicked}`
+            : ""
+        }`}
       >
         {isGetStartedButtonClicked && selectedCustomizeOption && (
           <Box>
@@ -675,7 +779,10 @@ const HomePage = () => {
                   const centeredBand =
                     selectedCollectionTypeBands[swiper.activeIndex];
                   setSelectedWatchBand(centeredBand.bandModel);
-                  setSelectedWatchBandName(centeredBand.bandName);
+                  setSelectedWatchBandName({
+                    name: centeredBand.bandName,
+                    id: centeredBand.id,
+                  });
                   setSelectedWatchBandImageUrl(centeredBand.imagePath);
                   setSelectedWatchFaceImageUrl(centeredBand.watchFaceImageUrl);
                 } else if (selectedCustomizeOption === CASE_TEXT) {
@@ -684,7 +791,10 @@ const HomePage = () => {
                   setSelectedWatchCase(
                     centeredCase.watchFaceCaseModel as ICaseType
                   );
-                  setSelectedWatchFaceName(centeredCase.watchFaceName);
+                  setSelectedWatchFaceName({
+                    name: centeredCase.watchFaceName,
+                    id: "",
+                  });
                   setSelectedWatchFaceImageUrl(centeredCase.imagePath);
                 }
                 setCenteredIndex(swiper.activeIndex); // Update centered slide index
@@ -826,6 +936,7 @@ const HomePage = () => {
           selectedWatchBand={selectedWatchBand}
           setSelectedWatchSize={setSelectedWatchSize}
           selectedWatchSize={selectedWatchSize}
+          onClickofBandText={onClickofBandText}
         />
       )}
     </Box>
