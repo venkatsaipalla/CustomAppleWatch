@@ -183,6 +183,12 @@
   .WatchInfoDisplayContainer{
     padding-top: 1rem;
   }
+  .landingPageAppleWatchFace{
+    min-height: 18.4705882353rem;
+  }
+  .landingPageAppleWatchContainerWhenGetStartedClicked{
+    min-height: 18.4705882353rem;
+  }
 }
 
 @media screen and (max-width: 734px) {
