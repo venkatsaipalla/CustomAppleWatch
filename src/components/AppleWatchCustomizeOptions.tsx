@@ -27,6 +27,7 @@ interface IappleWatchCustomizeOptions {
   setSelectedWatchSize: (value: IWatchSizes) => void;
   selectedWatchSize: string;
   onClickofBandText: (band: string) => void;
+  onClickofSizesText : (size : IWatchSizes) => void;
 }
 const AppleWatchCustomizeOptions = (props: IappleWatchCustomizeOptions) => {
   const {
@@ -39,6 +40,7 @@ const AppleWatchCustomizeOptions = (props: IappleWatchCustomizeOptions) => {
     setSelectedWatchSize,
     selectedWatchSize,
     onClickofBandText,
+    onClickofSizesText
   } = props;
   const sizeRef = useRef<HTMLDivElement>(null);
   const caseRef = useRef<HTMLDivElement>(null);
@@ -51,7 +53,10 @@ const AppleWatchCustomizeOptions = (props: IappleWatchCustomizeOptions) => {
     setSelectedWatchBand(band);
     onClickofBandText(band);
   };
-
+  const handleSizesTextClick = (size: IWatchSizes) => {
+    setSelectedWatchSize(size);
+    onClickofSizesText(size);
+  }
   const updateWidths = () => {
     if (sizeRef.current) {
       setSizesWidth(sizeRef.current.offsetWidth + 61);
@@ -86,6 +91,7 @@ const AppleWatchCustomizeOptions = (props: IappleWatchCustomizeOptions) => {
           msOverflowStyle: "none", // Hides scrollbar for Internet Explorer and Edge
         }}
       >
+        {/* Size Option */}
         <Box
           className={`${HomepageCss.CustomOptionsDiv} ${
             selectedCustomizeOption === SIZE_TEXT
@@ -106,7 +112,7 @@ const AppleWatchCustomizeOptions = (props: IappleWatchCustomizeOptions) => {
               APPLE_WATCH_SIZES_LIST.map((eachSize: string) => (
                 <Typography
                   className={HomepageCss.CustomOptionsText}
-                  onClick={() => setSelectedWatchSize(eachSize as IWatchSizes)}
+                  onClick={() => handleSizesTextClick(eachSize as IWatchSizes)}
                   style={{
                     fontWeight:
                       selectedWatchSize == eachSize ? "bold" : "normal",
