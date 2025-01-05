@@ -1182,9 +1182,9 @@ const HomePage = () => {
                         : "Apple Watch Case"
                     }
                     className={`${HomePageStyles.landingPageAppleWatch} ${
-                      selectedCustomizeOption === BAND_TEXT
-                        ? HomePageStyles.landingPageAppleWatchBlackBeltStap
-                        : HomePageStyles.landingPageAppleWatchCase
+                      // selectedCustomizeOption === BAND_TEXT
+                         HomePageStyles.landingPageAppleWatchBlackBeltStap
+                        // : HomePageStyles.landingPageAppleWatchCase
                     }`}
                     // className={`${HomePageStyles.landingPageAppleWatch} ${HomePageStyles.landingPageAppleWatchBlackBeltStap}`}
                   />
@@ -1200,7 +1200,7 @@ const HomePage = () => {
                     <img
                       src={selectedWatchFaceImageUrl}
                       alt={"Apple Watch Case"}
-                      className={`${HomePageStyles.landingPageAppleWatch} ${HomePageStyles.landingPageAppleWatchCase}`}
+                      className={`${HomePageStyles.landingPageAppleWatch} ${ HomePageStyles.landingPageAppleWatchBlackBeltStap}`}
                       style={{
                         position: "absolute",
                         left: "0",
@@ -1230,7 +1230,7 @@ const HomePage = () => {
                     <img
                       src={selectedWatchFaceImageUrl}
                       alt={"Apple Watch Case"}
-                      className={`${HomePageStyles.landingPageAppleWatch} ${HomePageStyles.landingPageAppleWatchCase}`}
+                      className={`${HomePageStyles.landingPageAppleWatch} ${ HomePageStyles.landingPageAppleWatchBlackBeltStap}`}
                       style={{
                         position: "absolute",
                         left: "0",
